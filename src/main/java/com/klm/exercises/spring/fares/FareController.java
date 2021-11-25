@@ -26,7 +26,7 @@ import static java.util.Locale.ENGLISH;
 @Secured("USER")
 public class FareController {
 
-    private final AirportRepository repository;
+    private final AirportRepository repository = null;
 
     @GetMapping
     public Callable<Fare> calculateFare(@PathVariable("origin") final String origin,
@@ -39,6 +39,7 @@ public class FareController {
             final BigDecimal fare = BigDecimal.valueOf(ThreadLocalRandom.current().nextDouble(100, 3500))
                             .setScale(2, HALF_UP);
             return new Fare(fare.doubleValue(), Currency.valueOf(currency.toUpperCase()), o.getCode(), d.getCode());
+            
         };
     }
 

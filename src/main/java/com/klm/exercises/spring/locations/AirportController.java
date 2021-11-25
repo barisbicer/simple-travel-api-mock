@@ -28,7 +28,7 @@ import static org.springframework.http.HttpStatus.OK;
 @Secured("USER")
 public class AirportController {
 
-    private final AirportRepository repository;
+    private final AirportRepository repository = null;
 
     @GetMapping
     public Callable<PagedModel<EntityModel<Location>>> list(

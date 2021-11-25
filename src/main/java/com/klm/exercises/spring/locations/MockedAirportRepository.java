@@ -11,11 +11,14 @@ import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Repository;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.klm.exercises.spring.common.ExceptionController;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -25,6 +28,9 @@ import static java.util.stream.Collectors.toList;
 @Repository
 public class MockedAirportRepository implements AirportRepository {
 
+	
+	private Logger logger = LoggerFactory.getLogger(MockedAirportRepository.class);
+	
     private final Map<String, Location> nlAirports;
     private final Map<String, Location> enAirports;
     private final ObjectMapper mapper;
@@ -61,7 +67,7 @@ public class MockedAirportRepository implements AirportRepository {
 
     private Map<String, Location> parseMockData(final String lang) {
         try {
-            log.info("Loading static resources from classpath and populating mocks.");
+        	logger.info("Loading static resources from classpath and populating mocks.");
             final List<Location> locations = mapper.readValue(
                             new ClassPathResource("locations_".concat(lang).concat(".json")).getInputStream(),
                             mapper.getTypeFactory().constructCollectionType(ArrayList.class, Location.class));
